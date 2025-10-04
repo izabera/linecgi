@@ -25,14 +25,20 @@ message format
 protocol
 --------
 
+all messages are wrapped in the format above
+
+only a server can initiate a communication
+
 each server message contains:
 - a list of newline separated headers (possibly empty)
 - an empty line
 - a body (possibly empty)
 
+(the headers format is configurable and not particularly important)
+
 clients reply with http
 
-the headers format is configurable and not particularly important
+clients must reply to every message
 
 example
 -------
@@ -43,7 +49,7 @@ example
 >METHOD GET\n                 # headers (configurable)
 >URI /myip\n
 >REMOTE_ADDR 1.2.3.4\n
->                             # separator (body is empty)
+>\n                           # separator (http body is empty)
 
 <0\n                          # client replies to message id 0
 <3\n                          # this message will contain 3 more lines
